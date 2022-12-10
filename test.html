@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // var arr = [1,2,3]
+    // console.log(arr instanceof Array); 
+    // console.log(arr instanceof Object); 
+    // console.log(Object instanceof Object); 
+    // console.log(Function instanceof Object); 
+    // console.log({} instanceof Object); 
+    // console.log(function fn(){} instanceof Object); 
+    // console.log([1,2,3] instanceof Object); 
+
+
+
+
+    function Foo () {}
+    const f1 = new Foo()
+    const f2 = new Foo()
+    const o1 = new Object()
+    const o2 = {}
+    // Function instanceof Object 
+    // Foo instanceof Object 
+    // Object instanceof Object   
+    // Foo instanceOf Function 
+    // Function instanceof Function 
+    
+    console.log(Object instanceof Foo);
+    console.log(f1 instanceof Function);
+    console.log(f1 instanceof Object);
+    // Object instanceof Foo
+    // f1 instanceof Function
+    // f1 instanceof Object
+  </script>
+</body>
+</html>

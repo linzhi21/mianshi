@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>this测试</title>
+</head>
+<body>
+  <script>
+    // 函数是函数，函数也是对象
+    // 函数是函数的时候，也就是把函数当函数调用
+    // 当函数调用的时候，函数可能是普通函数，也可能是构造函数
+    // 一个函数在定义的时候，就叫函数，只有在调用的时候才有可能说普通函数和构造函数
+    // 函数调用的标志是加括号   只加括号叫普通函数调用  加了new就叫构造函数调用
+    // 函数当对象去用   fn.prototype   此时函数叫函数对象
+  </script>
+
+  <script>
+    /* 相关测试题 */
+    // 题1  
+    // var a = 10
+    // function foo () {
+    //   console.log(this.a) //10
+    // }
+    // foo()
+   
+
+
+    // 题2 
+    // "use strict"   // 在严格模式下, 函数中指向window的this都为undefined
+    // function foo () {
+    //   console.log('this1', this)
+    //   console.log(window.a)
+    //   console.log(this.a)
+    // }
+    // var a;
+    // a = 10
+    // console.log(window.foo)
+    // console.log('this2', this)
+    // foo() 
+    
+
+    // 题3
+    
+    // let/const的全局变量不会添加为window的属性
+    // function foo () {
+    //   console.log(this.a)
+    //   console.log(this.b)
+    // }
+    // let a = 10
+    // const b = 20
+    // foo();
+    // console.log(window.a)
+   
+
+    // 题4
+    // function foo () {
+    //   var a
+    //   var inner
+    //   a = 2
+    //   inner = () => { 
+    //     console.log(a, this.a)
+    //   }
+    //   inner()
+    // }
+    // var a
+    // a = 1
+    // foo() 
+
+    // 题5
+    
+    // function foo () {
+    //   console.log(this.a) 
+    // }
+    // var obj
+    // var a
+    // obj = { a: 1, foo }
+    // a = 2
+    // foo()
+    // obj.foo()  
+   
+
+    // 题6
+    
+    // function foo () {
+    //   console.log(this.a)
+    // };
+    // var obj = { a: 1, foo } 
+    // var a = 2
+    // var foo2 = obj.foo
+    // var obj2 = { a: 3, foo2: obj.foo }
+
+    // obj.foo()
+    // foo2()
+    // obj2.foo2()
+   
+
+    // 题7
+    
+    // function foo () {
+    //   console.log(this.a)
+    //   return function () {
+    //     console.log(this.a)
+    //   }
+    // }
+    // var obj = { a: 1 }
+    // var a = 2
+
+    // foo()() 
+    // foo.call(obj)
+    // foo().call(obj)
+   
+
+
+    // 题8
+    
+    // function foo () {
+    //   console.log(this.a)
+    //   return function () {
+    //     console.log(this.a)
+    //   }
+    // }
+    // var obj = { a: 1 }
+    // var a = 2
+
+    // foo()
+    // foo.bind(obj)
+    // foo().bind(obj)
+   
+
+    // 题9
+    
+    var obj = {
+      name: 'obj',
+      foo1: () => {
+        console.log(this.name)
+      },
+      foo2: () => {
+        console.log(this.name)
+        return function() {
+          console.log(this.name)
+        }
+      }
+    }
+    var name = 'window'
+    obj.foo1()  
+    obj.foo2()()
+  </script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>  
+    // 作用域：
+      // 变量起作用的范围或者区域
+    // 为什么
+      // 隔离变量 防止污染  
+    // 作用域分类：
+    // - 全局作用域
+    // - 函数作用域
+    // - 块级作用域(ES6新增): const / let
+    //   - 问题: 什么是块作用域?  非函数花括号才有块级作用域
+
+   
+    // 作用域链
+    // 程序查找变量的过程，本质是一个数组 数组是由各个执行上下文当中的变量对象组成
+    // 查找变量的过程
+    // 先从自己的变量对象身上查找，如果有就用，没有就接着找上一级执行上下文当中变量对象
+    // ，直到找到全局的执行上下文的变量对象global，如果有就用，没有就报错（引用错误），a is not define
+
+
+
+    // 函数定义的时候确定了上级作用域链找谁
+    // 函数是不看在哪调用的，调用的时候无所谓，主要是看定义的时候确定的上级找谁
+    var a = 10
+    function fn(){
+      console.log(a);//?
+    }
+    function fn1(){
+      var a = 20
+      fn()
+    }
+    fn1()
+
+  </script>
+</body>
+</html>

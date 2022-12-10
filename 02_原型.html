@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 原型是什么？
+    // 原型全称叫原型对象
+    // js当中如果是按照函数和非函数去区分，对象被分为函数对象和非函数对象
+    // 每个函数对象身上都有一个prototype属性，这个属性所指向的对象，就叫原型对象，称为显式原型对象
+    // 每个实例化对象（js所有的对象）身上都有一个__proto__属性，这个属性所指向的对象，也叫原型对象，称为隐式原型对象
+
+    // 函数对象的prototype所指向的显式原型对象和
+    // 由这个函数所实例化的实例化对象身上的__proto__所指向的隐式原型对象是同一个对象
+
+    // 为什么要有原型
+    // 资源共享 节约内存
+    // 怎么玩
+
+    //构造函数
+    function Dog(name,color,age){
+      this.name = name
+      this.color = color
+      this.age = age
+      // 属性后期每个实例化对象大概率都是不一样的，因此属性我们都是写在构造函数内部
+      // 而方法，后期每个实例化对象最终调用的时候，效果都是一样的，写在构造函数内部
+      // 就会导致，每个实例化对象都有自己独立的函数内存空间，造成内存浪费，
+      // 因此后期我们的方法都不是在这写的。而是在原型当中去添加。
+      // this.run = function(){
+      //   console.log('跑的很快');
+      // }
+    }
+
+   
+
+    Dog.prototype.run = function(){
+      console.log('跑的很快');
+    }
+
+    // d1.__proto__.run = function(){
+    //     console.log('跑的很快');
+    //   }
+
+    //new做了什么？
+    // 1、开辟一块内存空间
+    // 2、this指向指向开辟的内存空间
+    // 3、执行函数内部代码，给内存当中添加属性和方法
+    // 4、给内存当中添加__proto__,让__proto__地址和构造函数prototype地址一样
+    // 5、返回this所指向的内存地址，就是你的实例化对象的地址
+
+
+    let d1 = new Dog('旺财','白色',2)
+    let d2 = new Dog('富贵','黑色',3)
+    d2.run()
+
+
+
+    
+    console.log(Function.prototype === Function.__proto__);
+    console.log(Function.prototype);
+
+  </script>
+</body>
+</html>

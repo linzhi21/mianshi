@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+ // 1、执行上下文*******************************
+        // 什么是执行上下文
+        // 执行上下文全称执行上上下文环境，是程序运行所依赖的环境
+//  2、执行上下文分类
+        // 分为全局执行上下文和函数执行上下文
+        // 不管是什么执行上下文都分为两个阶段：创建阶段和执行阶段
+//  3、创建阶段？
+        // 主要是做了三件事
+        // 1、收集变量形成变量对象（此过程当中就包含了我们所认为的预解析）
+            // （函数的执行上下文，比全局的再此过程当中多做了一件事，就是收集之前先传参形成arguments）
+        // 2、确定this指向
+        // 3、确定自己的作用域链 
+        // 作用域是虚拟的，看不见摸不着，函数定义的时候就确定死了
+        // 但是作用域链是真实存在的，我们是可以在调试工具当中看到的
+//  4、执行阶段？
+        // 只做了一件事：根据作用域链查找变量，使用变量的值或者给变量赋值
+
+    // 函数在定义的时候确定了自己在调用的时候上级作用域链
+    // 函数在调用的时候把自己的变量对象，添加在上级作用域链头部确定好自己的作用域链
+
+// var a = 100
+// console.log(a);
+// function fn(){
+//     var b = 200
+//     console.log(b);
+// }
+// fn()
+// console.log(a);
+
+
+/* 
+    2、闭包是什么?
+        是包含了被引用变量的一个容器(不是js对象), 被内部函数对象引用着
+        内部函数引用外部函数局部变量的一个引用关系 这个关系是用一个容器对象去描述的,在内部函数对象身上
+        fn2 ==> 内部函数对象 ==> 闭包
+    3、产生闭包的条件
+        1. 函数嵌套
+        2. 内部函数引用了外部函数的局部变量
+        3. 调用外部函数（外部函数要调用，内部函数要定义）
+
+    4、执行内部函数定义 和执行内部函数调用是两码事
+
+
+    5、什么时候生成闭包? 
+          执行内部函数定义, 也就是创建内部函数对象
+
+
+
+
+    6、如何使用闭包? / 如何让闭包在执行完函数后还能存活下来?
+        返回内部函数, 在外部接收    最常用的手段
+
+
+        用其它不会立即释放的变量引用内部函数对象  setTimeout(() => {})
+
+    7、闭包的作用?
+        延长局部变量的生命周期
+        让函数外部能间接操作内部的局部变量
+
+
+
+
+
+
+
+
+
+
+
+
+    8、区别闭包的三个操作
+        产生闭包:  内部函数对象创建时产生, 包含那个被引用的变量的容器(不是js对象)
+        使用闭包: 执行内部函数,也就是内部函数调用才会用到闭包
+        释放闭包: 让内部函数对象成为垃圾对象, 断开指向它的所有引用
+
+
+    9、闭包的优缺点：
+        优点：
+            延长局部变量的生命周期
+            让函数外部能间接操作内部的局部变量
+        缺点：
+            闭包是不会自己销毁的，形成内存泄漏，泄漏的厉害了会造成内存溢出
+            闭包不能滥用  不用的时候记得销毁
+    10、闭包的应用?
+        具体功能说: 可以说根据id删除品牌(需要显示确定框)
+        大的说: 我们定义的很多模块在编译后的代码中都存在闭包
+
+    */
+
+    // function fn(){
+    //     var a = 100
+    //     function fn1(){
+    //         a++
+    //         console.log(a);
+    //     }
+    //     return fn1
+    // }
+
+    // var f = fn() //永久闭包
+    // // fn第一次调用，自己的执行上下文和自己执行过程产生的内部函数数据，形成独立的闭包机制
+    // // 只要是以后根据f去调用内部函数，内部函数当中a，永远操作的就是fn第一次调用执行上下文当中的a
+    // // a的值，被保存，不会销毁
+    // f() //101
+    // f() //102
+    // f() //103
+    // f() //104
+    // f = null
+
+    // var f1 = fn()
+    // f1() //101
+    // f1() 
+    // f1()
+    // f1()
+    // f1 = null
+
+    // fn()()  //临时闭包
+
+
+
+      // function showDedelay(time, msg) {
+      //   setTimeout(() => {
+      //     alert(msg);
+      //   }, time);
+      // }
+      // showDedelay(1000,'zhaoliying');
+
+    </script>
+    <!-- <script>
+      /* 测试题 */
+      // 题1
+      /*for ( var i = 0 ; i < 5; i++ ) {
+          setTimeout(function(){
+              console.log(i); //
+          }, 0);
+        } 
+    */
+
+    // 题3
+      for ( var i = 0 ; i < 5; i++ ) {
+      //   (function(j){
+      //       setTimeout(function(){
+      //           console.log(j); 
+      //       }, 0);
+      //   })(i);
+      // }
+
+      // 题2
+      /* for ( let i = 0 ; i < 5; i++ ) {
+            setTimeout(function(){
+                console.log(i);
+            },0);
+        } */
+      // 题4
+      var scope = 'global scope'
+      function checkscope(){
+          var scope = 'local scope'
+          return function f(){
+              console.log(scope)
+          }
+      }
+      var f = checkscope()
+      
+      console.log(f())
+    
+    
+
+      // 题5
+      /* 
+    var name
+    var obj
+    name = 'jerry'
+    obj = {  
+        name : 'tom',  
+        sayName(){ 
+            console.log(this.name)
+            return function(){  
+                console.log(this.name);
+            }
+        }   
+    }
+    obj.sayName()() 
+
+
+
+
+    
+    */
+
+
+    </script> -->
+
+    <script>
+    var name
+    var obj
+    name = 'jerry'
+    obj = {  
+        name : 'tom',  
+        sayName:() => { 
+            console.log(this.name)
+            return () => {  
+                console.log(this.name);
+            }
+        }   
+    }
+    obj.sayName()() 
+    </script>
+  </body>
+</html>
