@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function fn(a,b){
+      console.log(arguments)
+      console.log(this,a,b)
+      
+      return a + b
+    }
+    let obj = {}
+    // fn.call()
+    fn.bind(obj,3,4)(1,2)
+
+    // call和apply  干了两个事情   1、改变传递的函数this指向   2调用传递的函数
+
+    // bind 
+    // 返回的是一个新函数，在这个新函数里面再调用传递的函数，然后修改this指向
+
+
+
+
+  </script>
+</body>
+</html>
