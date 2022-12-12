@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 面向对象：封装 继承 多态
+    // 多态：js本身就是多态的，因为是弱类型
+    // function fn(a,b){
+    //   return a + b
+    // }
+
+
+    // 1、函数写法
+    // js当中继承有三种：借助构造函数继承（继承属性）  原型继承（继承方法）  组合继承（前两个都用到）
+    // function Person(name,age,gender){
+    //   this.name = name
+    //   this.age = age
+    //   this.gender = gender
+    // }
+
+    // Person.prototype.sayHi = () => {
+    //   console.log('hello');
+    // }
+
+
+    // function Student(name,age,gender,studyNum){
+    //   // this.name = name
+    //   // this.age = age
+    //   // this.gender = gender
+    //   Person.call(this,name,age,gender) //借助构造函数继承
+    //   this.studyNum = studyNum
+    // }
+
+    // // Student.prototype.sayHi = () => {
+    // //   console.log('hello');
+    // // }
+    // // 原型继承：让子类的原型是父类的实例     给原型添加constructor
+    // Student.prototype = new Person()
+    // Student.prototype.constructor = Student
+
+
+
+    // Student.prototype.study = () => {
+    //   console.log('好好学习');
+    // }
+
+    // let p1 = new Person('赵丽颖',35,'female')
+    // let s1 = new Student('zs',20,'male','001')
+    // console.log(p1);
+    // p1.sayHi()
+    // console.log(s1);
+    // s1.sayHi()
+    // s1.study()
+
+    // console.dir(Person);
+
+
+    // 2、class写法
+    class Person {
+      static a = 100 //加了static关键字的东西是给类本身添加的 我们叫静态属性或者静态方法
+      state = {}  //在实例身上添加一个属性叫state,不但在自己的实例身上添加，而且在所有后代类的实例身上也会添加
+      // 构造器方法
+      constructor(name,age,gender){
+        this.name = name
+        this.age = age
+        this.gender = gender
+      }
+      // 默认这些个方法就会添加原型身上去
+      sayHi(){
+        console.log('hello');
+      }
+    }
+
+
+    // extends默认其实就是组合继承  
+    class Student extends Person{
+      // 构造器方法
+      constructor(name,age,gender,studyNum){
+        // this.name = name
+        // this.age = age
+        // this.gender = gender
+        super(name,age,gender) //只能写在第一行
+        this.studyNum = studyNum
+      }
+      // 默认这些个方法就会添加原型身上去
+      // 如果用到了extends继承，那么下面的sayHi会自动继承
+      sayHi(){
+        console.log('hello word');
+      }
+      study(){
+        console.log('好好学习');
+      }
+      eat(params){
+        if(typeof params === 'string'){
+          console.log('吃汉堡');
+        }else if(typeof params === 'number'){
+          console.log('吃薯条');
+        }
+        
+      }
+
+      // 下面这样的写法会吧方法添加在实例身上
+      // study = () => {
+      //   console.log('好好学习');
+      // }
+    }
+
+    let p1 = new Person('赵丽颖',35,'female')
+    console.dir(Person);
+    console.log(p1);
+    p1.sayHi()
+
+    let s1 = new Student('zs',20,'male','001')
+    console.log(s1);
+    s1.sayHi()
+    s1.study()
+
+
+
+    // 多态
+    // 方法重写和方法重载都是多态的表现
+    // 方法重写造成的多态
+    function sayHi(obj){
+      obj.sayHi()
+    }
+
+    function eat(obj,params){
+      obj.eat(params)
+    }
+
+    sayHi(new Person())
+    sayHi(new Student())
+
+
+    // 方法重载造成的多态
+    eat(new Student(),10)
+    eat(new Student(),'10')
+
+  </script>
+  
+</body>
+</html>

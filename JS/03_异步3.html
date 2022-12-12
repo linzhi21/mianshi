@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.20.0/axios.min.js"></script>
+
+  <script>
+    // 在没有promise的时候，我们依然在发送异步请求
+    // 此时处理异步，使用的是纯回调的形式
+    // 这样的做法可以达到目的，但是指定回调的时机不灵活
+    // 在写请求的时候就要指定好回调，如果不指定是没办法发请求，直接报错
+    // 也就是说请求还没发呢，回调就得写好
+    // 此时就很容易出现回调地狱，导致代码可读性极差，但是并不是错
+
+
+    // promise学习最主要的是后面的两个.then ,.then的作用是？ 指定回调
+    // 第一个.then进入是成功还是失败回调，取决于执行器当中修改promise的状态是成功还是失败
+    new Promise((resolve,reject) => {
+      console.log(111);
+      resolve(111)
+    }).then((result) => {
+      return 2
+    },(reason) => {
+      console.log(reason);
+      return 100
+    }).then((result) => {
+      return Promise.reject(3)
+    },(reason) => {
+      return Promise.resolve(6)
+    })
+
+    
+    
+
+
+
+
+
+
+    // promise是一个对象，有状态有结果
+    // promise的作用：promise并没有解决掉回调，只是能优化回调地狱，而且指定回调的时机比较灵活
+
+    // promise的状态
+    // pending  fullfilled/resolved  rejected
+    // pending  ==> fullfill/resolved
+    // pending  ==> rejected
+    // 状态只能改一次而且不可逆
+
+
+    // async和await的作用
+    // promise并没有去把回调给干掉，只要回调存在我们就称作是异步代码
+    // 直到async和await出现，才真正的把回调给干掉，变成了同步代码
+    // 但是代码是同步代码，实现的效果还是异步效果
+
+
+    async function fn(){
+      try {
+        await new Promise((resolve,reject) => { console.log(111);})
+        // 下面的代码相当一是then当中成功回调当中的逻辑
+      } catch (error) {
+        // 相当于是then当中失败回调当中的逻辑
+      }
+      
+    }
+
+
+  </script>
+</body>
+</html>

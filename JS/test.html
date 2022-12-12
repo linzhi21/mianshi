@@ -16,12 +16,6 @@
     // console.log({} instanceof Object); 
     // console.log(function fn(){} instanceof Object); 
     // console.log([1,2,3] instanceof Object); 
-
-    var a=10
-    var a=20
-    console.log(a);
-
-
     // function Foo () {}
     // const f1 = new Foo()
     // const f2 = new Foo()
@@ -36,9 +30,117 @@
     // console.log(Object instanceof Foo);
     // console.log(f1 instanceof Function);
     // console.log(f1 instanceof Object);
-    // Object instanceof Foo
-    // f1 instanceof Function
-    // f1 instanceof Object
+    // // Object instanceof Foo
+    // // f1 instanceof Function
+    // // f1 instanceof Object
+
+    // 预解析
+    // 预解析是一个手段，最终达到的效果（结果）是变量提升
+    
+      // 定义函数：
+      //   函数声明定义函数     function fn(){}
+      //   函数表达式定义函数   var fn = function(){}
+
+
+      // 2步：
+      // 先预解析   函数声明定义的函数（function fn(){}），整体提升,重复发生覆盖 后提升的会替换前面提升的
+      // 再预解析   带var的变量，不带var的不会提升的。  同名被忽略
+
+      alert(a);
+      a = 0;
+
+      //2
+      var a
+      alert(a);
+      a = 0;
+      alert(a);
+
+      //3
+      function a(){ alert('我是函数') }
+      // var a
+      alert(a);
+      a = '我是变量';
+      alert(a);
+
+
+
+      // [1,2,3] 
+      // function fn(){}
+      // {}
+      // a + 1
+      // a++   a = a + 1  他俩不完全等价  如果都是数字 可以认为是等价的 如果数据类型不同，那么不等价
+                // ++是要把数据强制转成数字的
+      //4
+      function a(){ alert('我是函数') }
+      // var a
+      alert(a); //函数体
+      a++;  
+      alert(a); //NaN
+      a = '我是变量';
+      alert(a)
+
+
+      //5
+      function fn(){
+        var a
+        alert(a);
+        a = 1;
+        alert(a);
+      }
+      var a
+      alert(a);
+      a = 0;
+      alert(a);
+      fn()
+      alert(a);
+
+      //6
+      function fn(){
+        alert(a);
+        a = 1;
+        alert(a);
+      }
+      var a
+      alert(a);
+      a = 0;
+      alert(a);
+      fn()
+      alert(a);
+
+
+
+// 7
+      // function fn(){
+      //   alert(a);
+      //   a = 1;
+      //   alert(a);
+      // }
+
+      function fn(){
+        var a
+        alert(a);
+        a = 1;
+        alert(a);
+      }
+      var a
+      // var fn
+      alert(a);
+      a = 0;
+      alert(a);
+      fn()
+      fn()
+      fn = function(){
+        alert(a);
+        a = 1;
+        alert(a);
+      }
+      fn()
+      alert(a);
+
+ 
+
+
+
   </script>
 </body>
 </html>
