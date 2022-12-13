@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <p>{{timeNow}}</p>
+    <p>{{timeNow | dateFormat}}</p>
+    <p>{{timeNow | dateFormat('YYYY-MM-DD')}}</p>
+    <p>{{timeNow | dateFormat('hh:mm:ss')}}</p>
+  </div>
+
+  <div id="app1">
+    <p>{{timeNow}}</p>
+    <p>{{timeNow | dateFormat}}</p>
+    <p>{{timeNow | dateFormat('YYYY-MM-DD')}}</p>
+    <p>{{timeNow | dateFormat('hh:mm:ss')}}</p>
+  </div>
+
+  <script src="../js/vue.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+  <script>
+    // 过滤器
+    // 过滤顾名思义是筛选的意思,但是在vue当中过滤器不是筛选的意思
+    // 它是把数据进行二次加工
+
+    // 定义过滤器分为全局过滤器和局部过滤器
+    // 全局
+    // Vue.filter('dateFormat', (value, format = 'YYYY-MM-DD hh:mm:ss') => {
+    //   return moment(value).format(format)
+    // })
+
+    new Vue({
+      el: '#app',
+      data: {
+        timeNow: new Date().getTime()  //Date.now()
+      },
+      // 局部
+      filters: {
+        dateFormat: (value, format = 'YYYY-MM-DD hh:mm:ss') => {
+          return moment(value).format(format)
+        }
+      }
+    })
+
+    new Vue({
+      el: '#app1',
+      data: {
+        timeNow: new Date().getTime()  //Date.now()
+      }
+    })
+
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <ul>
+      <li v-for="(item, index) in arr" :key="index">
+        {{item}}
+      </li>
+    </ul>
+  </div>
+
+  <script src="../js/vue.js"></script>
+
+  <script>
+    // 动态数据驱动页面
+    // let arr = ['赵丽颖','杨幂','迪丽热巴']
+    // let str = '<ul>'
+    // for(let i = 0; i <arr.length; i++){
+    //   str += `<li>${arr[i]}</li>`
+    // }
+    // str += '</ul>'
+    // document.getElementById('app').innerHTML = str
+
+    // // 后期数据更改了，效率极低，没有虚拟dom，所有的元素都要进行重绘重排
+    // str = '<ul>'
+    // arr = ['旺财','小黑','大黄']
+    // for(let i = 0; i <arr.length; i++){
+    //   str += `<li>${arr[i]}</li>`
+    // }
+    // str += '</ul>'
+    // document.getElementById('app').innerHTML = str
+
+    
+
+
+
+    // vue写法
+
+    let vm = new Vue({
+      el:'#app',
+      data:{
+        arr:['赵丽颖','杨幂','迪丽热巴']
+      }
+    })
+
+
+    vm.arr = ['旺财','小黑','大黄']
+    
+
+
+
+    // 原生的初始化渲染是不会拖慢效率的，甚至比react和vue还要快，因为不需要创建虚拟dom
+    // 但是数据一旦更改，那么react和vue比原生的效率要高的多，因为有diffing算法的介入
+    // 虚拟dom会进行对比，减少真实dom的重绘重排 
+
+
+
+  </script>
+</body>
+</html>

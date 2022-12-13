@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    姓：<input type="text" v-model="firstName"> <br>
+    名：<input type="text" v-model="lastName"> <br>
+    <!-- 第四种方案，使用监视 -->
+    姓名：<p>{{fullName}}</p>
+  </div>
+  <script src="../js/vue.js"></script>
+  <script>
+
+    Vue.config.productionTip = false
+    // 一般监视什么时候用：
+    // 必须有这个数据，才能监视，监视一般主要是用于数据发生改变，做一些事情的时候
+
+
+    new Vue({
+      el:'#app',
+      data(){
+        return {
+          firstName:'zhao',
+          lastName:'liying',
+          fullName:''
+        }
+      },
+
+      // 监视数据 
+      watch: {
+        // 当firstName发生改变的时候，会自动调用handler回调做一些事
+        firstName:{
+          immediate:true, //立即  无论数据改不改变，先调一次handler
+          handler(newVal,oldVal){
+            // console.log(111);
+            // this.fullName = newVal + '-' + this.lastName
+            setTimeout(() => {
+              this.fullName = newVal + '-' + this.lastName
+            }, 2000);
+          }
+        },
+        lastName:{
+          immediate:true,
+          handler(newVal,oldVal){
+            this.fullName = this.firstName + '-' + newVal
+          }
+        }
+
+      },
+
+
+      // 什么时候用计算属性computed什么时候用watch监视
+      // 一般情况下：
+      // 没有数据想使用 考虑计算属性computed
+      // 有数据，想根据这个数据的变化去做一些事情
+
+
+      // computed计算属性，内部不能异步返回数据
+      // 原因是因为computed是需要return结果的，return是同步代码
+      // watch内部可以去写异步，原因是watch不需要返回数据
+      // 它是把一个响应式数据进行赋值操作
+      // computed一般不写异步
+      // watch可以写异步
+
+      // 能用computed的一定能用watch实现
+      // 能用watch实现的不一定能用computed实现
+
+      // 不能因为watch能实现computed的功能，以后就全部使用watch
+      // 最终还是采用一般用法
+
+    })
+  </script>
+</body>
+</html>

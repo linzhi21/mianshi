@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <!-- 挂载点 -->
+  <div id="app">
+    <!-- 挂载点的内部就是模板，但是不包含挂载点 
+    
+    模板是在挂载点内部，它不再是我们单纯的html了
+    它是由html + js组成
+
+    模板有模板语法：
+    分为两种： 
+      插值语法{{}}，它主要是给标签插入内容，
+      指令语法  它主要是用来操作标签的，包含属性也包含内容，
+      但是指令比较多，每个指令只能做一件事情
+      指令操作属性和插值语法操作内容，我们所书写的都不再是字符串了
+      全部都变为js表达式
+    -->
+    <p>{{msg.toUpperCase()}}</p>
+    <!-- 使用指令后，属性值的双引号就不再是字符串的边界，而是js的边界 -->
+    <a v-bind:href="url">点击去百度</a>
+    <!-- 简写 -->
+    <a :href="url + '哈哈'">点击去百度</a>
+  </div>
+  <!-- 
+    1、引入vue
+    2、书写模板挂载点 
+    3、书写配置项 new Vue
+  -->
+  <script src="../js/vue.js"></script>
+  <script>
+    // 函数和函数对象
+    // 函数就是函数，我们定义的时候都叫函数
+    // 函数在使用的时候是加() 使用我们称之为函数
+    // 函数如果是加.使用，那么我们就称之为函数对象
+
+	  // 函数和构造函数	
+    // 函数在使用的时候才会区分函数（普通函数调用）和构造函数（构造函数调用）
+    // 如果函数直接加() 就叫普通函数调用
+    // 如果函数加 new+() 就叫构造函数调用
+
+    // 配置对象： 键名不能更改 值可以改变的对象
+
+    new Vue({
+      el:'#app', //这个值是一个css选择器字符串，它其实后期通过这个css找挂载点，
+      data:{
+        msg:'i love you!',
+        url:'https://www.baidu.com'
+      },
+      // template:'<p>{{msg}}</p>' //模板，这样的写法以后不用，1、没提示2、嵌套起来很复杂
+    })  
+
+
+
+
+
+
+
+
+  </script>
+</body>
+</html>

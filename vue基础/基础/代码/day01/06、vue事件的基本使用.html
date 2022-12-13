@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <p>{{msg}}</p>
+    <!-- <button v-on:click="test">点击切换</button> -->
+    <button @click="test">点击切换</button>
+  </div>
+  <script src="../js/vue.js"></script>
+  <script>
+    new Vue({
+      el:'#app',
+      data:{
+        // 这里面的数据最终都会代理到vm身上
+        msg:'赵丽颖'
+      },
+      methods: {
+        // 以后无论是自己定义的函数方法或者是回调函数
+        // 都在这个配置当中去写
+        test(){
+          // 配置项当中methods的方法，this都是指向vm
+          this.msg = '杨幂'
+        }
+      },
+    })
+  </script>
+</body>
+</html>

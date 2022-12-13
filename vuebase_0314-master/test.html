@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 如果运算  比较  判等的过程当中遇到对象
+    // 当判等的时候两遍同时是对象，此时直接判地址不转化
+    // 其余都要转化
+
+    // 对象数据转基本值
+    // 对象转基本值两大步：
+    // 1、对象数据要调用valueOf方法，这个valueOf是Object的原型对象方法
+    // valueOf方法调用是为了获取对象的原始值，拿到原始值，就代表转化基本值完成
+    // 但是只有包装对象才有原始值
+    // 2、数组对象函数调用valueOf的时候是没有原始值的，那么就会返回自身，接着
+    // 又会去调用toString方法，toString方法，各自是有各自的toString方法的，所以
+    // 数组函数对象各自调用各自的toString方法。各自的toString方法返回的东西是不一样的
+
+    // 数组转化出来的结果   去掉中括号，直接加引号
+    // 函数转化出来的结果   函数体加引号
+    // 对象转化出来的结果   [object  Object]
+
+
+  </script>
+</body>
+</html>

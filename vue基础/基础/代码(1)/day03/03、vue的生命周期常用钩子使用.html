@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <p ref="pp">{{isShow?'我爱你赵丽颖':'我爱你杨幂'}}</p>
+    <button @click="$destroy()">点击销毁</button>
+  </div>
+  <script src="../js/vue.js"></script>
+  <script>
+    Vue.config.productionTip = false
+
+    new Vue({
+      data(){
+        return {
+          isShow:true
+        }
+      },
+
+      // 创建阶段
+      // 创建前可以找到vm但是找不到vm数据
+      beforeCreate() {
+        console.log(this,this.isShow);
+      },
+      created() {
+        console.log(this,this.isShow);
+      },
+
+      // 挂载阶段
+      // 挂载前拿不到真实dom 挂载后可以拿到
+      beforeMount() {
+        console.log(this.$refs.pp);
+      },
+
+
+      mounted() {
+        console.log(this.$refs.pp);
+        this.timer = setInterval(() => {
+          console.log(111);
+          this.isShow = !this.isShow
+        }, 2000);
+      },
+
+      // 更新阶段 （页面更新阶段）
+      // 任何数据更新变化，都会进入这个阶段
+      beforeUpdate() {
+        console.log(this.isShow,this.$refs.pp.innerHTML);
+      },
+      updated() {
+        console.log(this.isShow,this.$refs.pp.innerHTML);
+      },
+     
+      beforeDestroy() {
+        console.log(this,this.isShow);
+
+        // 清除定时器
+        clearInterval(this.timer) //它只是把管理模块当中任务给清掉
+        this.timer = null
+      },
+
+      destroyed() {
+        console.log(this,this.isShow);
+      },
+     
+    }).$mount('#app')
+
+  </script>
+</body>
+</html>

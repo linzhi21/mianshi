@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <p>{{this.msg}}</p>
+  </div>
+  <script src="../js/vue.js"></script>
+  <script>
+    let vm = new Vue({
+      el:"#app",
+      data(){
+        return {
+          msg:'我爱你赵丽颖'
+        }
+      }
+    })
+
+    // msg到底是谁的
+    // 模板当中msg其实是this的，this代表的其实是vm   vm是实例化的对象
+    // vue当中模板当中的数据全部都是vm的，所有的方法也是vm的
+    // 数据是一上来要经过数据代理，把data当中的msg，代理到vm身上
+    // vm身上也就有一个同名属性msg，但是并没有真正的值而是多了getter和setter
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <ul>
+      <li v-for="(person, index) in persons" :key="person.id">
+        {{person.id}} --- {{person.username}} --- {{person.age}}
+      </li>
+    </ul>
+    <button @click="update">点击修改第一个人的名字</button>
+  </div>
+  <script src="../js/vue.js"></script>
+  <script>
+    new Vue({
+      el:"#app",
+      data(){
+        return {
+          persons:[
+            {id:1,username:'zhaoliying',age:35},
+            {id:2,username:'yangmi',age:36},
+            {id:3,username:'dilireba',age:30}
+          ]
+        }
+      },
+
+      methods: {
+        update(){
+          // this.persons[0].username = 'yingbao'
+          // this.persons[0] = {id:1,username:'yingbao',age:35}
+          this.persons.splice(0,1,{id:1,username:'yingbao',age:35})
+        }
+        
+
+        // vue在处理数据的时候响应式是按照以下规则来的
+
+        // 对于对象
+        // 当我们一旦实例化vm实例的时候，vue内部会做数据劫持，把
+        // data当中所有的对象属性（包括深层次），都添加了getter和setter
+        // 让每个属性都是响应式的
+        // 因此第一项成功了
+
+        // 对于数组
+        // 数组的响应式是修改了7个方法，只要使用的是下面7个方法当中的、
+        // 那么一定响应式，其实本质就是给这些数组方法添加了修改页面的功能而已
+        // push()
+        // pop()
+        // shift()
+        // unshift()
+        // splice()
+        // sort()
+        // reverse()
+        // 所以第三种可以
+
+
+
+        
+
+
+
+      },
+    })
+  </script>
+</body>
+</html>

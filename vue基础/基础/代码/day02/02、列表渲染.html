@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <ul>
+      <!-- key是虚拟dom进行diffing算法对比的时候，所依赖的标识
+      这个标识能用唯一值就用唯一值，尽量别用下标
+
+      如果只是为了查，那么写index下标没问题
+      如果是增删改，那么写下标可能会出问题
+      最次也会导致效率低下 -->
+      <li v-for="(person,index) in persons" :key="person.id">
+        {{person.id}} --- {{person.username}} --- {{person.age}}
+      </li>
+    </ul>
+  </div>
+  <script src="../js/vue.js"></script>
+  <script>
+    new Vue({
+      el:'#app',
+      data(){
+        return {
+          persons:[
+            {id:1,username:'zhaoliying',age:35},
+            {id:2,username:'yangmi',age:36},
+            {id:3,username:'dilireba',age:30}
+          ]
+        }
+      }
+    })
+  </script>
+</body>
+</html>

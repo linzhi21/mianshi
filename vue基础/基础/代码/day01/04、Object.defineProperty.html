@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // Object.defineProperty是一个方法（函数）
+    // 函数三要素：功能 参数 返回值
+    // 功能：给对象添加或者修改属性，让这个属性是响应式的（这个属性改变引起其它的改变）
+
+    let obj = {
+      firstName:'zhao',
+      lastName:'liying'
+    }
+    
+    // 下面这样的写法写死了，不是响应式的属性
+    // obj.fullName = 'zhao-liying'
+    // console.log(obj);
+
+    // obj.fullName = 'liu-yifei'
+    // console.log(obj);
+
+    Object.defineProperty(obj,'fullName',{
+      get(){
+        return this.firstName + '-' + this.lastName
+      },
+      set(val){
+        let arr = val.split('-')
+        this.firstName = arr[0]
+        this.lastName = arr[1]
+      }
+    })
+
+    console.log(obj.fullName);
+    obj.fullName = 'liu-yifei'
+    console.log(obj);
+
+
+    // 数据代理
+    let data = {
+      msg:'我爱你赵丽颖'
+    }
+
+    let vm = {
+
+    }
+
+    Object.defineProperty(vm,'msg',{
+      get(){
+        return data.msg
+      },
+      set(val){
+        data.msg = val
+      }
+    })
+
+    console.log(vm);
+    console.log(vm.msg);
+  
+
+
+
+
+  </script>
+</body>
+</html>

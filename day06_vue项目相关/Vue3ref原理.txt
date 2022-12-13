@@ -1,0 +1,95 @@
+Vue3当中ref的原理
+
+1、基本使用
+  ref接受一个内部值，返回一个响应式的、可更改的ref对象，此对象只有一个指向其内部值的property.value
+    const count = ref(0)
+    console.log(count.value)
+    count.value++
+    console.log(count.value)
+
+2、源码解析
+
+  第一步：调用ref函数内部传递一个数据可以是基本数据也可以是对象数据
+    export function ref(value?: unknown) {
+      return createRef(value, false)
+    }
+
+    ref返回createRef函数的返回值。
+
+  第二步：
+    createRef接收两个参数：rawValue待转换的值、shallow浅层响应式。
+
+    function createRef(rawValue: unknown, shallow: boolean) {
+      if (isRef(rawValue)) {
+        return rawValue
+      }
+      return new RefImpl(rawValue, shallow)
+    }
+
+    如果rawValue本就是ref类型的会立即返回rawValue，否则返回一个RefImpl实例。
+
+  第三步：
+    class RefImpl<T> {
+      private _value: T
+      private _rawValue: T
+      
+      // 当前ref的依赖
+      public dep?: Dep = undefined
+      public readonly __v_isRef = true
+
+      constructor(value: T, public readonly __v_isShallow: boolean) {
+        this._rawValue = __v_isShallow ? value : toRaw(value)
+        this._value = __v_isShallow ? value : toReactive(value)
+      }
+
+      get value() {
+        trackRefValue(this)
+        return this._value
+      }
+
+      set value(newVal) {
+        newVal = this.__v_isShallow ? newVal : toRaw(newVal)
+        if (hasChanged(newVal, this._rawValue)) {
+          this._rawValue = newVal
+          this._value = this.__v_isShallow ? newVal : toReactive(newVal)
+          triggerRefValue(this, newVal)
+        }
+      }
+    }
+
+    RefImpl的构造器接收两个值：value、__v_isShallow是否浅层响应式。
+
+    constructor(value: T, public readonly __v_isShallow: boolean) {
+      // 获取原始值，如果是浅层响应式，原始值就是value；如果不是浅层响应式，原始值是value的原始值
+      this._rawValue = __v_isShallow ? value : toRaw(value)
+      // 响应式数据，如果是浅层响应式，是value；否则转为reactive（只有Object类型才会转为reactive）
+      this._value = __v_isShallow ? value : toReactive(value)
+    }
+
+    当获取new RefImpl()的value属性时，会调用trackRefValue进行依赖收集，并返回this._value。
+
+  第四步：
+    export function trackRefValue(ref: RefBase<any>) {
+      if (shouldTrack && activeEffect) {
+        ref = toRaw(ref)
+        if (__DEV__) {
+          trackEffects(ref.dep || (ref.dep = createDep()), {
+            target: ref,
+            type: TrackOpTypes.GET,
+            key: 'value'
+          })
+        } else {
+          // 收集依赖到ref.dep中
+          trackEffects(ref.dep || (ref.dep = createDep()))
+        }
+      }
+    }
+
+    与reactive不同，ref的依赖会被保存在ref.dep中。
+
+    当修改new RefImpl()的value属性时，会调用triggerRefValue触发依赖。
+
+    总结
+    ref的通过class实现，通过class的取值函数和存值函数进行依赖的收集与触发。
+    对于深度响应式的ref，会在向value属性赋值过程中，将新的值转为reactive，以达到深度响应式的效果。
+

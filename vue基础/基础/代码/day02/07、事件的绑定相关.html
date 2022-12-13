@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <!-- 最原始的写法,而且不带参数 -->
+    <button v-on:click="test">test</button>
+    <!-- 把最原始的写法进行简写 -->
+    <button @click="test">test</button>
+    <!-- 默认我们写的回调传递了一个参数是事件对象 
+    和下面这个写法是一样的，函数调用如果你也要拿到事件对象
+    因为外层给你自动添加一个函数，外层函数就变为回调函数，内层函数想使用
+    事件对象，需要把外层函数接收的事件对象，进行手动传递,$event只能出现在模板当中
+    后期我们把$event称为叫默认参数
+    -->
+    <button @click="test1($event)">test1</button>
+    <!-- 一旦写了函数调用,并且还要传递事件对象
+    全写应该是这个样子
+    写函数调用的时候别加this，加了this就报错，因为this指向改变了
+    function($event){
+      test1($event)
+    }
+    -->
+
+    <!-- 不但想传递事件对象还要传递自己额外的参数，那么就一起传,没有先后顺序，接收的时候注意 -->
+    <button @click="test2(10,$event)">test2</button>
+  </div>
+  <script src="../js/vue.js"></script>
+  <script>
+    new Vue({
+      el:'#app',
+      data(){
+        return {
+
+        }
+      },
+      methods: {
+        test(event){
+          console.log(event.target.innerHTML);
+        },
+        test1(event){
+          console.log(event.target.innerHTML);
+        },
+        test2(num,event){
+          console.log(event.target.innerHTML,num);
+        }
+      },
+
+    })
+  </script>
+</body>
+</html>

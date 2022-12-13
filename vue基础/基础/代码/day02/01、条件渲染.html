@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <p v-if="isShow">表白成功</p>
+    <p v-else>表白失败</p>
+    <hr>
+    <p v-show="isShow">求婚成功</p>
+    <p v-show="!isShow">求婚失败</p>
+    <button @click="changeIsShow">切换</button>
+
+    <!-- vif 和 vshow都是条件渲染有什么区别？ 
+    vif后面的条件如果为真，当前元素才会渲染，也就是说条件为假的元素内存中都不存在
+    vshow后面的条件无论是真还是假，都会进行渲染，也就是说条件为假的元素内存中仍然存在，只是使用css隐藏了
+    vif和vshow根据使用场景的不同，效率是不一样的
+    如果我们切换的频率很高，vshow比较合适，因为不需要重复的去渲染元素，内存也不需要重复的去创建销毁
+    如果我们切换的频率不高，vif比较合适，因为内存占用比较少，效率比较高
+    -->
+
+    <!-- 后期我们会使用组件标签，组件创建有生命周期，如果我们使用vif在组件标签身上
+    假设条件为假，这个组件是不会创建了，内存当中没有组件对象
+    如果使用的是vshow在组件标签身上，那么不管条件是真还是假，这个组件都会创建，生命周期都会执行对应的钩子
+  -->
+
+
+<!-- 从输入url回车，到页面渲染完成经历了什么？ -->
+<!-- 
+  1、dns解析，本质是把域名解析为 ip:端口
+
+  2、tcp建立连接  三次握手
+
+  3、http请求发送请求报文
+
+  4、后台服务器返回响应报文
+
+  5、浏览器拿到响应报文后，解析渲染
+     html  ----  domTree
+     css  ----   cssTree
+     把生成的domTree和cssTree合并为renderTree 进行渲染
+
+  6、和后台断开连接  四次挥手
+ -->
+
+
+
+
+  </div>
+  <script src="../js/vue.js"></script>
+  <script>
+    new Vue({
+      el:'#app',
+      data:{
+        isShow:true
+      },
+      methods: {
+        changeIsShow(){
+          this.isShow = !this.isShow
+        }
+      },
+    })
+  </script>
+</body>
+</html>

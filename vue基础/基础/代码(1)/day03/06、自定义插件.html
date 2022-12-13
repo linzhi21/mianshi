@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <p v-upper="msg"></p>
+  </div>
+  <script src="../js/vue.js"></script>
+  <script src="../js/myplugin.js"></script>
+  
+  <script>
+    console.log(MyPlugin); //插件已经被放在window对象身上
+
+    Vue.use(MyPlugin)
+    //声明使用插件，所有的官方插件都要声明使用
+    // 面试题：
+    // 本质
+    // 如果是函数式插件就是直接调用这个函数
+    // 如果是对象式插件，那么就找到对象的install方法去调用
+   
+
+    Vue.myGlobalMethod()
+
+    let vm = new Vue({
+      el:"#app",
+      data(){
+        return {
+          msg:'aaaa'
+        }
+      }
+    })
+
+    vm.$myMethod()
+  </script>
+</body>
+</html>

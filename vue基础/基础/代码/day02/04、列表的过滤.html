@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <input type="text" v-model="keyword">
+    <!-- 
+      vfor和vif能不能同时使用？ 答案是肯定的
+      vfor和vif同时使用的时候，谁的优先级高：答案是vfor
+      但是不推荐vfor和vif同时使用，因为vfor本身会出现很多个元素，每个元素身上都有一个指令v-if
+      vif指令都是需要进行解析的，指令进行解析的过程是很消耗性能的，这样效率就会很低下
+      原因是效率极低
+
+      解决办法：
+       计算属性，我们通过计算属性把需要展示的数据，计算为一个新数组，展示的时候我们不和原数组拉关系
+       这样的话，vfor遍历直接遍历计算出来的新数组即可
+     -->
+    <ul>
+      <!-- 不推荐，效率低 -->
+      <!-- <li v-for="(person, index) in persons" :key="person.id" v-if="person.username.indexOf(keyword)!==-1">
+        {{person.id}} --- {{person.username}} --- {{person.age}}
+      </li> -->
+
+      <li v-for="(person, index) in newPersons" :key="person.id">
+        {{person.id}} --- {{person.username}} --- {{person.age}}
+      </li>
+    </ul>
+  </div>
+  <script src="../js/vue.js"></script>
+  <script>
+    new Vue({
+      el:"#app",
+      data(){
+        return {
+          persons:[
+            {id:1,username:'zhaoliying',age:35},
+            {id:2,username:'yangmi',age:36},
+            {id:3,username:'dilireba',age:30}
+          ],
+          keyword:''
+        }
+      },
+      computed: {
+        newPersons(){
+          let {persons,keyword} = this
+          return persons.filter(item => item.username.indexOf(keyword) !== -1)
+        }
+      },
+    })
+  </script>
+</body>
+</html>

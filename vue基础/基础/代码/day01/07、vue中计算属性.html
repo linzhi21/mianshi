@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    姓：<input type="text" v-model="firstName"> <br>
+    名：<input type="text" v-model="lastName"> <br>
+    <!-- 第一种办法 插值语法 
+    这样的写法不是不行，是不好，模板当中最好简洁-->
+    姓名：<p>{{firstName + '-' + lastName}}</p>
+    <!-- 第二种办法
+    这样的写法也是可行，但是不好 ,因为多次使用会调用多次，效率不高-->
+    姓名：<p>{{getFullName()}}</p>
+    <!-- 姓名：<p>{{getFullName()}}</p>
+    姓名：<p>{{getFullName()}}</p>
+    姓名：<p>{{getFullName()}}</p> -->
+    <!-- 第三种办法：计算属性，
+    这样的写法很好，多次使用，只需要调用一次，因为内部有缓存机制 -->
+    <!-- 一般是当我们没有这个数据还想要用这个数据，这个数据和已有的数据有关系 -->
+    姓名: <p>{{fullName}}</p>
+    <!-- 姓名: <p>{{fullName}}</p>
+    姓名: <p>{{fullName}}</p>
+    姓名: <p>{{fullName}}</p> -->
+
+    姓名: <input type="text" v-model="fullName1">
+  </div>
+  <script src="../js/vue.js"></script>
+  <script>
+
+    Vue.config.productionTip = false
+
+    new Vue({
+      el:'#app',
+      data(){
+        return {
+          firstName:'zhao',
+          lastName:'liying',
+
+
+        }
+      },
+      methods: {
+        getFullName(){
+          console.log('函数被调用getFullName');
+          return this.firstName + '-' + this.lastName
+        }
+      },
+      computed: {
+        // 计算属性
+        // 计算属性全写,当我们计算的这个属性既可读又可写的时候，那么就得用全写
+        fullName1:{
+          get(){
+            return this.firstName + '-' + this.lastName
+          },
+          set(val){
+            // set和get不同，get是和watch进行对比的
+            // set没有，set只是监视数据变化后修改页面
+            let arr = val.split('-')
+            this.firstName = arr[0]
+            this.lastName = arr[1]
+          }
+        },
+
+        // 如果页面上只是在读取这个计算的属性，可以简写为函数
+        // 相当于是get
+        // 但是切记，计算属性虽然看似函数，其实是计算了一个新的数据叫fullName
+        // 计算属性计算出来的数据当data数据对待，也就是说也会代理到vm身上
+        fullName:function(){
+          // console.log('计算属性被调用fullName');
+          return this.firstName + '-' + this.lastName
+
+          // computed计算属性不能异步返回数据
+          // let result = 0
+          // setTimeout(() => {
+          //   result = this.firstName + '-' + this.lastName
+          // }, 1000);
+          // return result
+        }
+      },
+
+    })
+  </script>
+</body>
+</html>

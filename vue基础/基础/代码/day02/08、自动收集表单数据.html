@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <!-- 1、收集表单元素的数据，用的是v-model
+         2、一般默认情况v-model收集的是表单元素的value值
+    -->
+    <!-- 文本输入框和密码输入框，value值就是用户输入的数据 -->
+    用户名: <input type="text" placeholder="请输入用户名" v-model="userInfo.username"> <br>
+    密  码: <input type="password" placeholder="请输入密码" v-model="userInfo.password"><br>
+
+
+    性  别：
+    <!-- 单选输入框,默认是没有value值，value值必须自己写 -->
+        <label><input type="radio" name="sex" value="male" v-model="userInfo.gender">男</label>
+        <label><input type="radio" name="sex" value="female" v-model="userInfo.gender">女</label> <br>
+    爱  好：
+
+    <!-- 多选输入框分为成组使用和单个使用，现在这个爱好是属于成组使用
+    如果是成组使用，收集value值需要收集到一个数组当中，成组使用的时候value值也需要自己写 -->
+        <label><input type="checkbox" value="basketball" v-model="userInfo.favs">🏀</label>
+        <label><input type="checkbox" value="football" v-model="userInfo.favs">⚽</label>
+        <label><input type="checkbox" value="ping-pang" v-model="userInfo.favs">🏓</label> <br>
+    城  市:
+    <!-- 下拉选择收集的数据是select要收集的，也就是说vmodel要写在select身上
+    但是select本省并没有value值，select收集的是选中的option的value值
+    option的value值写什么，要看你收集什么？
+   -->
+        <select v-model="userInfo.cityId">
+          <option :value="city.id" v-for="(city, index) in cities" :key="city.id">
+            {{city.name}}
+          </option>
+        </select> <br>
+    个人简介：
+    <!-- 文本域和文本输入框一样 -->
+        <textarea  cols="30" rows="10" v-model="userInfo.desc"></textarea>
+        <br>
+    <!-- 如果多选框是单个使用的vmodel可以理解为其实是默认和checked绑定的 -->
+    <input type="checkbox"  v-model="userInfo.isChecked">同意协议
+    <button @click="submit">提交</button>
+  </div>
+  <script src="../js/vue.js"></script>
+  <script>
+    new Vue({
+      el:'#app',
+      data(){
+        return {
+          userInfo:{
+            username:'',
+            password:'',
+            gender:'',
+            favs:[],
+            cityId:2,
+            desc:'',
+            isChecked:false
+          },
+          cities:[
+            {id:1,name:'西安'},
+            {id:2,name:'北京'},
+            {id:3,name:'上海'},
+          ]
+        }
+      },
+      methods: {
+        // submit(){
+        //   axios({
+        //     url:'./xxx',
+        //     method:'post',
+        //     data:this.userInfo
+        //   })
+        // }
+      },
+    })
+  </script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <p v-text="msg"></p>
+    <p v-upper="msg"></p>
+  </div>
+
+  <div id="app1">
+    <p v-text="msg"></p>
+    <p v-upper="msg"></p>
+  </div>
+
+
+
+  <script src="../js/vue.js"></script>
+  <script>
+    // 定义全局指令
+    // 指令名不带v- 并且指令名必须全小写
+    // Vue.directive('upper', (node, bindings) => {
+    //   // console.log(node,bindings);
+    //   // 获取到元素和元素所绑定的数据
+    //   // 手动给元素的内容改成大写
+    //   node.textContent = bindings.value.toUpperCase()
+    // })
+
+
+    new Vue({
+      el: '#app',
+      data: {
+        msg: 'i love you~'
+      },
+      directives: {
+        upper: (node, bindings) => {
+          // console.log(node,bindings);
+          // 获取到元素和元素所绑定的数据
+          // 手动给元素的内容改成大写
+          node.textContent = bindings.value.toUpperCase()
+        }
+      }
+
+    })
+
+    new Vue({
+      el: '#app1',
+      data: {
+        msg: 'i love you~'
+      }
+    })
+
+
+
+  </script>
+</body>
+
+</html>

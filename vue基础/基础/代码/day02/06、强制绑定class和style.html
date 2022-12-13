@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .classA{
+      font-size: 80px;
+    }
+    .classB{
+      color: hotpink;
+    }
+    .classC{
+      background-color: greenyellow;
+    }
+    .classD{
+      font-size: 30px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <!-- 强制绑定class -->
+    <!-- 1、我不知道这个元素应该是哪个类，是哪个类是后台给我返回来的  字符串用法-->
+    <p  class="classD" :class="myClass" >我爱你赵丽颖</p>
+
+    <!-- 2、我知道哪些类在这个元素身上，但是我不知道哪个生效  对象写法-->
+    <p :class="{classA:isA,classB:isB}">我爱你赵丽颖</p>
+
+    <!-- 3、元素身上有多个类生效，多个类也是后台返回的  数组写法-->
+    <p :class="classArr">我爱你赵丽颖</p>
+
+
+    <!-- 强制绑定style -->
+    <!-- 样式属性我们知道，值是由后台返回来的 对象写法-->
+    <p :style="{fontSize,color:myColor}">我爱你赵丽颖</p>
+
+    <button @click="updateClass">点击改变样式</button>
+  </div>
+  <script src="../js/vue.js"></script>
+  <script>
+    new Vue({
+      el:'#app',
+      data(){
+        return {
+          myClass:'classA',
+          isA:true,
+          isB:false,
+          classArr:['classA','classB','classC'],
+          fontSize:'100px',
+          myColor:'skyblue'
+
+        }
+      },
+      methods: {
+        updateClass(){
+          this.isA = !this.isA
+          this.isB = !this.isB
+        }
+      },
+    })
+  </script>
+</body>
+</html>

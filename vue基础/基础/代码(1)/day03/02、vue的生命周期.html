@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <p ref="pp">{{msg}}</p>
+    <button @click="msg = '我爱你杨幂'">点击更新</button>
+    <button @click="$destroy()">点击销毁</button>
+  </div>
+  <script src="../js/vue.js"></script>
+  <script>
+    Vue.config.productionTip = false
+
+    new Vue({
+      data(){
+        return {
+          msg:'我爱你赵丽颖'
+        }
+      },
+      // 创建阶段
+      // 创建前可以找到vm但是找不到vm数据
+      beforeCreate() {
+        console.log(this,this.msg);
+      },
+      created() {
+        console.log(this,this.msg);
+      },
+
+      // 挂载阶段
+      // 挂载前拿不到真实dom 挂载后可以拿到
+      beforeMount() {
+        console.log(this.$refs.pp);
+      },
+
+      // 挂载完成用的比较多
+      // 通常在这里面发请求获取动态数据，修改初始化的数据
+      // 在这里也通常去开启定时器
+      // 在这里给真实dom绑定事件
+      mounted() {
+        console.log(this.$refs.pp);
+      },
+
+      // 更新阶段 （页面更新阶段）
+      // 任何数据更新变化，都会进入这个阶段
+      beforeUpdate() {
+        console.log(this.msg,this.$refs.pp.innerHTML);
+      },
+      updated() {
+        console.log(this.msg,this.$refs.pp.innerHTML);
+      },
+
+      // 销毁阶段
+      // 销毁前用的比较多，一般都是在做善后处理
+      // 比如：解绑事件、清除定时器
+      beforeDestroy() {
+        console.log(this,this.msg);
+      },
+      destroyed() {
+        console.log(this,this.msg);
+        this.msg = '我爱你迪丽热巴'
+      },
+    }).$mount('#app')
+
+  </script>
+</body>
+</html>
